@@ -18,7 +18,23 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+#!/usr/bin/env/ruby
+
+require 'varspec'
+include Varspec
+
+def double(x)
+  variable[:x].is_kind_of(Numeric)
+  x * 2
+end
+
+double(21) # => 42
+double("21") # => ???
+```
+
+    $ ./sample.rb
+    
 
 ## Contributing
 
