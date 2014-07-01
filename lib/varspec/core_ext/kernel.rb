@@ -7,4 +7,16 @@ module Kernel
   # @return Binding
   # 
   alias :variable :binding
+  
+  if defined? invalid_variable?
+    warn 'Kernel.#invalid_variable is redefined'
+  end
+  
+  def invalid_variable?(val)
+    if self == val
+      false
+    else
+      val.inspect
+    end
+  end
 end
