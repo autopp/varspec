@@ -44,6 +44,12 @@ describe Varspec do
     expect(inc(100)).to eq(101)
     expect(inc(nil)).to eq(1)
     expect{inc("100")}.to raise_error(ValidationError)
+    
+    begin
+      inc("100")
+    rescue ValidationError => e
+      puts e
+    end
   end
 end
 

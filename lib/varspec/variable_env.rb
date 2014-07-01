@@ -6,15 +6,23 @@ module Varspec
       @env = env
     end
     
-    def is(matcher, level = 1)
+    def is(matcher, level = 0)
       env.each_pair do |name, value|
         if msg = matcher.invalid_variable?(value)
-          if /^(.+?):(\d+):in/ =~ caller[level]
-            file, line = $1, $2
+          # Extract callee
+          if /^(.+?):(\d+):in/ =~ caller[level+2]
+            callee_file, callee_line = $1, $2
           else
-            file = line = ''
+            callee_file = callee_line = ''
           end
-          raise ValidationError.new(name, file, line, matcher.to_s, msg)
+          
+          if /^(.+?):(\d+):in/ =~ caller[level+3]
+            caller_file, caller_line = $1, $2
+          else
+            caller_file = caller_line = ''
+          end
+          
+          raise ValidationError.new(name, callee_file, callee_line, caller_file, caller_line, matcher.to_s, msg)
         end
       end
       
