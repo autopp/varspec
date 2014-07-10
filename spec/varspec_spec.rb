@@ -10,6 +10,8 @@ end
 
 def sum(a)
   variable[:a].is ArrayOf[Numeric]
+  variable[:a].is ArrayOf(Numeric)
+  
   a.reduce(&:+)
 end
 

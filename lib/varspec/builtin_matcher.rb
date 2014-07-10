@@ -136,5 +136,65 @@ module Varspec
         "may be #{@matcher}"
       end
     end
+    
+    class All < Matcher
+      attr_reader :matchers
+      
+      def initialize(*matchers)
+        if matchers.length == 0
+          raise ArgumentError, "require 1 more than matcher"
+        end
+        @matchers = matchers
+      end
+      
+      def invalid_variable?(val)
+        matchers.each do |matcher|
+          if msg = matcher.invalid_variable?(val)
+            return val.inspect
+          end
+        end
+        
+        false
+      end
+      
+      def to_s
+        if matchers.length == 1
+          matchers[0].inspect
+        else
+          matchers[0, matchers.length-1].map(&:inspect).join(', ') + " and #{matchers[-1]}"
+        end
+      end
+    end
+    
+    class Not
+      attr_reader :matcher
+      
+      def initialize(matcher)
+        @matcher = matcher
+      end
+      
+      def invalid_variable?(val)
+        if !matcher.invalid_variable?(val)
+          val.inspect
+        else
+          false
+        end
+      end
+      
+      def to_s
+        "not #{matcher}"
+      end
+    end
+    
+    # Define module function corresponding each builtin matcher
+    self.constants(false).select{ |c| self.const_get(c, false) < Matcher }.each do |c|
+      eval <<-EOS
+        def #{c}(*args)
+          #{c}[*args]
+        end
+        
+        module_function #{c.inspect}
+      EOS
+    end
   end
 end
