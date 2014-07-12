@@ -1,25 +1,5 @@
 module Varspec
   module BuiltinMatcher
-    class Eq < Matcher
-      attr_reader :target
-      
-      def initialize(target)
-        @target = target
-      end
-      
-      def invalid_variable?(val)
-        if val == target
-          false
-        else
-          "#{val}"
-        end
-      end
-      
-      def to_s
-        "equal to #{target}"
-      end
-    end
-    
     class Or < Matcher
       attr_reader :matchers
       
@@ -200,6 +180,9 @@ end
 # load each builtin matcher
 require 'varspec/builtin_matcher/array_of'
 require 'varspec/builtin_matcher/hash_of'
+require 'varspec/builtin_matcher/boolean'
+require 'varspec/builtin_matcher/eq'
+
 
 # Define module function corresponding each builtin matcher
 module Varspec
