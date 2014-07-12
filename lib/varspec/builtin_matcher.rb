@@ -69,26 +69,6 @@ module Varspec
       end
     end
     
-    class Not
-      attr_reader :matcher
-      
-      def initialize(matcher)
-        @matcher = matcher
-      end
-      
-      def invalid_variable?(val)
-        if !matcher.invalid_variable?(val)
-          val.inspect
-        else
-          false
-        end
-      end
-      
-      def to_s
-        "not #{matcher}"
-      end
-    end
-    
     class Truthy < Matcher
       def initialize
       end
@@ -182,7 +162,7 @@ require 'varspec/builtin_matcher/array_of'
 require 'varspec/builtin_matcher/hash_of'
 require 'varspec/builtin_matcher/boolean'
 require 'varspec/builtin_matcher/eq'
-
+require 'varspec/builtin_matcher/not'
 
 # Define module function corresponding each builtin matcher
 module Varspec
