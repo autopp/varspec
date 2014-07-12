@@ -2,35 +2,6 @@ require 'singleton'
 
 module Varspec
   module BuiltinMatcher
-    class HashOf < Matcher
-      attr_reader :key_matcher, :value_matcher
-    
-      def initialize(key_matcher, value_matcher)
-        @key_matcher = key_matcher
-        @value_matcher = value_matcher
-      end
-      
-      def invalid_variable?(val)
-        if not val.is_a?(Hash)
-          val.inspect
-        else
-          val.each_pair do |key, value|
-            if msg = key_matcher.invalid_variable?(key)
-              return "invalid key: #{msg}"
-            else msg = value_matcher.invalid_variable?(value)
-              return "invalid value (key = #{key.inspect}): #{msg}"
-            end
-          end
-        end
-        
-        false
-      end
-      
-      def to_s
-        "{#{key_matcher} => #{value_matcher}}"
-      end
-    end
-    
     class Booelean < Matcher
       include Singleton
       def invalid_variable? val
@@ -249,6 +220,7 @@ end
 
 # load each builtin matcher
 require 'varspec/builtin_matcher/array_of'
+require 'varspec/builtin_matcher/hash_of'
 
 # Define module function corresponding each builtin matcher
 module Varspec
