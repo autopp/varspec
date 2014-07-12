@@ -1,26 +1,5 @@
-require 'singleton'
-
 module Varspec
   module BuiltinMatcher
-    class Booelean < Matcher
-      include Singleton
-      def invalid_variable? val
-        if val == true || val == false
-          false
-        else
-          val.inspect
-        end
-      end
-      
-      def self.invalid_variable?(val)
-        instance.invalid_variable(val)
-      end
-      
-      def to_s
-        "Boolean"
-      end
-    end
-    
     class Eq < Matcher
       attr_reader :target
       
