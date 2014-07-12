@@ -1,15 +1,6 @@
 module Varspec
   module BuiltinMatcher
-    class Maybe < Or
-      def initialize(matcher)
-        @matcher = matcher
-        super(matcher, nil)
-      end
-      
-      def to_s
-        "may be #{@matcher}"
-      end
-    end
+    
     
     class Truthy < Matcher
       def initialize
@@ -107,6 +98,7 @@ require 'varspec/builtin_matcher/eq'
 require 'varspec/builtin_matcher/not'
 require 'varspec/builtin_matcher/and'
 require 'varspec/builtin_matcher/or'
+require 'varspec/builtin_matcher/maybe'
 
 # Define module function corresponding each builtin matcher
 module Varspec
