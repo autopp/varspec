@@ -1,17 +1,6 @@
 module Varspec
   module BuiltinMatcher
-    class None < Matcher
-      def initialize
-      end
-      
-      def invalid_variable?(val)
-        val.inspect
-      end
-      
-      def to_s
-        "nothing"
-      end
-    end
+    
     
     class RespondTo < Matcher
       attr_reader :method_names
@@ -53,6 +42,7 @@ require 'varspec/builtin_matcher/maybe'
 require 'varspec/builtin_matcher/truthy'
 require 'varspec/builtin_matcher/falsey'
 require 'varspec/builtin_matcher/any'
+require 'varspec/builtin_matcher/none'
 
 # Define module function corresponding each builtin matcher
 module Varspec
