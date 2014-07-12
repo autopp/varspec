@@ -1,22 +1,5 @@
 module Varspec
   module BuiltinMatcher
-    class Falsey < Matcher
-      def initialize
-      end
-      
-      def invalid_variable?(val)
-        if val
-          val.inspect
-        else
-          false
-        end
-      end
-      
-      def to_s
-        "falsey value"
-      end
-    end
-    
     class Any < Matcher
       def initialize
       end
@@ -81,6 +64,7 @@ require 'varspec/builtin_matcher/and'
 require 'varspec/builtin_matcher/or'
 require 'varspec/builtin_matcher/maybe'
 require 'varspec/builtin_matcher/truthy'
+require 'varspec/builtin_matcher/falsey'
 
 # Define module function corresponding each builtin matcher
 module Varspec
