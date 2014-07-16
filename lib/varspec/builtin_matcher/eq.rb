@@ -1,14 +1,12 @@
 module Varspec
   module BuiltinMatcher
     class Eq < Matcher
-      attr_reader :target
-      
       def initialize(target)
         @target = target
       end
       
       def invalid_variable?(val)
-        if val == target
+        if val == @target
           false
         else
           "#{val}"
@@ -16,7 +14,7 @@ module Varspec
       end
       
       def to_s
-        "equal to #{target}"
+        "equal to #{@target}"
       end
     end
   end

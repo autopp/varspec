@@ -1,8 +1,6 @@
 module Varspec
   module BuiltinMatcher
     class HashOf < Matcher
-      attr_reader :key_matcher, :value_matcher
-    
       def initialize(key_matcher, value_matcher)
         @key_matcher = key_matcher
         @value_matcher = value_matcher
@@ -13,9 +11,9 @@ module Varspec
           val.inspect
         else
           val.each_pair do |key, value|
-            if msg = key_matcher.invalid_variable?(key)
+            if msg = @key_matcher.invalid_variable?(key)
               return "invalid key: #{msg}"
-            else msg = value_matcher.invalid_variable?(value)
+            else msg = @value_matcher.invalid_variable?(value)
               return "invalid value (key = #{key.inspect}): #{msg}"
             end
           end
@@ -25,7 +23,7 @@ module Varspec
       end
       
       def to_s
-        "{#{key_matcher} => #{value_matcher}}"
+        "{#{@key_matcher} => #{@value_matcher}}"
       end
     end
   end

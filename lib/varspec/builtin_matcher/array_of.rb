@@ -10,7 +10,7 @@ module Varspec
           return val.inspect
         else
           val.each_with_index do |x, i|
-            if msg = matcher.invalid_variable?(x)
+            if msg = @matcher.invalid_variable?(x)
               return "at index #{i}: #{msg}"
             end
           end
@@ -20,7 +20,7 @@ module Varspec
       end
       
       def to_s
-        "[#{matcher}]"
+        "[#{@matcher}]"
       end
     end
   end

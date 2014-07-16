@@ -4,19 +4,19 @@ include Varspec
 include Varspec::BuiltinMatcher
 
 def twice(x)
-  variable[:x].is Numeric
+  expect_var[:x].to_be Numeric
   x * 2
 end
 
 def sum(a)
-  variable[:a].is ArrayOf[Numeric]
-  variable[:a].is ArrayOf(Numeric)
+  expect_var[:a].to_be ArrayOf[Numeric]
+  expect_var[:a].to_be ArrayOf(Numeric)
   
   a.reduce(&:+)
 end
 
 def inc(x)
-  variable[:x].is Maybe[Numeric]
+  expect_var[:x].to_be Maybe[Numeric]
   
   x ? x + 1 : 1
 end
