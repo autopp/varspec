@@ -9,6 +9,33 @@ module Varspec
         if not val.is_a?(Array)
           return val.inspect
         else
+          case @length_cond
+          when :<
+            if val.length < @length
+              return val.inspect
+            end
+          when :<=
+            if val.length <= @length
+              return val.inspect
+            end
+          when :>
+            if val.length > @length
+              return val.inspect
+            end
+          when :>=
+            if val.length >= @length
+              return val.inspect
+            end
+          when :eq
+            if val.length == @length
+              return val.inspect
+            end
+          when :not_eq
+            if val.length != @length
+              return val.inspect
+            end
+          end
+          
           val.each_with_index do |x, i|
             if msg = @matcher.invalid_variable?(x)
               return "at index #{i}: #{msg}"
@@ -20,8 +47,44 @@ module Varspec
       end
       
       def to_s
-        "[#{@matcher}]"
+        if @length_cond
+          "[#{@mathcer}] (length #{@length_cond} #{@length})"
+        else
+          "[#{@matcher}]"
+        end
       end
+      
+      def < length
+        @length_cond = :<
+        @length = length
+      end
+      
+      def <= length
+        @length_cond = :<=
+        @length = length
+      end
+      
+      def > length
+        @length_cond = :>
+        @length = length
+      end
+      
+      def >= length
+        @length_cond = :>=
+        @length = length
+      end
+      
+      def eq length
+        @length_cond = :eq
+        @length = length
+      end
+      
+      def not_eq length
+        @length_cond = :not_eq
+        @length = length
+      end
+      
+      
     end
   end
 end
