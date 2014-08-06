@@ -9,8 +9,9 @@ class Binding
     values = names.map do |name|
       raise TypeError, "require Symbol, but got #{name.inspect}" if not name.is_a?(Symbol)
       raise ArgumentError, "require valid local variable name, but got '#{name}'" if not name =~ LOCAL_VARIABLE_PATTERN
-      Kernel.eval("#{name}", self)
+      self.local_variable_get(name)
     end
-    Varspec::VariableEnv.new(names, values)
+    
+    Varspec::VariableEnv.new(Kernel.eval('self', self), names, values)
   end
 end

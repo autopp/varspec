@@ -1,6 +1,7 @@
 module Varspec
   class VariableEnv
-    def initialize(names, values)
+    def initialize(instance, names, values)
+      @instance = instance
       @names = names
       @values = values
     end
@@ -59,6 +60,17 @@ module Varspec
       end
     end
     
-    alias :to_be :to
+    alias to_be to
+    
+    def of_instance_to(matcher)
+      ret = self.to(matcher, 1)
+      @names.each_with_index do |name, i|
+        @instance.instance_variable_set("@#{name}", @values[i])
+      end
+      
+      ret
+    end
+    
+    alias of_instance_to_be of_instance_to
   end
 end

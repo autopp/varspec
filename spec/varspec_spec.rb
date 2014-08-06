@@ -21,6 +21,17 @@ def inc(x)
   x ? x + 1 : 1
 end
 
+class Parson
+  def initialize(name, age)
+    expect_var[:name].of_instance_to_be String
+    expect_var[:age].of_instance_to_be Integer
+  end
+  
+  def to_s
+    "<#{@name}: #{@age}>"
+  end
+end
+
 describe Varspec do
   it 'returns 42' do
     expect(twice(21)).to eq(42)
@@ -52,6 +63,15 @@ describe Varspec do
     rescue ValidationError => e
       puts e
     end
+  end
+  
+  it 'returns <Taro: 10>' do
+    parson = Parson.new('Taro', 10)
+    expect(parson.to_s).to eq('<Taro: 10>')
+  end
+  
+  it 'raise ValidationError' do
+    expect{Parson.new('Taro', 3.14)}.to raise_error(ValidationError)
   end
 end
 
