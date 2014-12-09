@@ -21,6 +21,10 @@ def inc(x)
   x ? x + 1 : 1
 end
 
+def div_and_mod(x, y)
+  [x / y, x % y]
+end
+
 class Parson
   def initialize(name, age)
     expect_var[:name].of_instance_to_be String
@@ -29,6 +33,15 @@ class Parson
   
   def to_s
     "<#{@name}: #{@age}>"
+  end
+  
+  def to_tuple
+    [@name, @age]
+  end
+  
+  def self.make(tuple)
+    expect_var[:tuple].to_be TupleOf(String, Integer)
+    new(*tuple)
   end
 end
 
@@ -70,8 +83,20 @@ describe Varspec do
     expect(parson.to_s).to eq('<Taro: 10>')
   end
   
-  it 'raise ValidationError' do
+  it 'raises ValidationError' do
     expect { Parson.new('Taro', 3.14) }.to raise_error(ValidationError)
+  end
+  
+  it 'returns ["Taro", 10]' do
+    parson = Parson.new('Taro', 10)
+    tuple = parson.to_tuple 
+    expect(tuple).to eq(['Taro', 10])
+  end
+  
+  it 'raises ValidationError' do
+    expect { Parson.make([10, 'Jiro']) }.to raise_error(ValidationError)
+    expect { Parson.make(['Jiro']) }.to raise_error(ValidationError)
+    expect { Parson.make(['Jiro', 10, 'child']) }.to raise_error(ValidationError)
   end
 end
 

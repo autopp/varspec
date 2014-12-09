@@ -17,6 +17,7 @@ require 'varspec/builtin_matcher/falsey'
 require 'varspec/builtin_matcher/any'
 require 'varspec/builtin_matcher/none'
 require 'varspec/builtin_matcher/respond_to'
+require 'varspec/builtin_matcher/tuple_of'
 
 # Define module function corresponding each builtin matcher
 module Varspec
