@@ -6,12 +6,11 @@ module Kernel
   #
   # @return Binding
   # 
-  alias :expect_variable :binding
-  alias :expect_var :expect_variable
+  alias_method :expect_variable, :binding
+  alias_method :expect_var, :expect_variable
+    
+  warn 'Kernel.#invalid_variable is redefined' if defined? invalid_variable?
   
-  if defined? invalid_variable?
-    warn 'Kernel.#invalid_variable is redefined'
-  end
   
   def invalid_variable?(val)
     if self == val

@@ -42,24 +42,24 @@ describe Varspec do
   end
   
   it 'raises ValidationError' do
-    expect{twice("21")}.to raise_error(ValidationError)
+    expect { twice('21') }.to raise_error(ValidationError)
   end
   
   it 'raises ValidationError' do
-    expect{sum(1)}.to raise_error(ValidationError)
+    expect { sum(1) }.to raise_error(ValidationError)
   end
   
   it 'raises ValidationError' do
-    expect{sum([1, "2", 3])}.to raise_error(ValidationError)
+    expect { sum([1, '2', 3]) }.to raise_error(ValidationError)
   end
   
   it 'returns x + 1' do
     expect(inc(100)).to eq(101)
     expect(inc(nil)).to eq(1)
-    expect{inc("100")}.to raise_error(ValidationError)
+    expect { inc('100') }.to raise_error(ValidationError)
     
     begin
-      inc("100")
+      inc('100')
     rescue ValidationError => e
       puts e
     end
@@ -71,7 +71,7 @@ describe Varspec do
   end
   
   it 'raise ValidationError' do
-    expect{Parson.new('Taro', 3.14)}.to raise_error(ValidationError)
+    expect { Parson.new('Taro', 3.14) }.to raise_error(ValidationError)
   end
 end
 

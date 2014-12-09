@@ -25,7 +25,7 @@ variable `#{variable}' is violated! (at #{callee_file}:#{callee_line})
       [callee_file, callee_line]
     end
     
-    alias loc callee_loc
+    alias_method :loc, :callee_loc
     
     def caller_loc
       [caller_file, caller_line]

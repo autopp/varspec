@@ -13,7 +13,7 @@ module Varspec
       end
       
       def to_s
-        "falsey value"
+        'falsey value'
       end
     end
   end

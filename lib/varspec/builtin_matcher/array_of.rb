@@ -6,40 +6,27 @@ module Varspec
       end
       
       def invalid_variable?(val)
-        if not val.is_a?(Array)
+        if !val.is_a?(Array)
           return val.inspect
         else
           case @length_cond
           when :<
-            if val.length >= @length
-              return val.inspect
-            end
+            return val.inspect if val.length >= @length
           when :<=
-            if val.length > @length
-              return val.inspect
-            end
+            return val.inspect if val.length > @length
           when :>
-            if val.length <= @length
-              return val.inspect
-            end
+            return val.inspect if val.length <= @length
           when :>=
-            if val.length < @length
-              return val.inspect
-            end
+            return val.inspect if val.length < @length
           when :eq
-            if val.length != @length
-              return val.inspect
-            end
+            return val.inspect if val.length != @length
           when :not_eq
-            if val.length == @length
-              return val.inspect
-            end
+            return val.inspect if val.length == @length
           end
           
           val.each_with_index do |x, i|
-            if msg = @matcher.invalid_variable?(x)
-              return "at index #{i}: #{msg}"
-            end
+            msg = @matcher.invalid_variable?(x)
+            return "at index #{i}: #{msg}" if msg
           end
         end
         
@@ -54,43 +41,41 @@ module Varspec
         end
       end
       
-      def < length
+      def <(other)
         @length_cond = :<
         @length = length
         self
       end
       
-      def <= length
+      def <=(other)
         @length_cond = :<=
         @length = length
         self
       end
       
-      def > length
+      def >(other)
         @length_cond = :>
         @length = length
         self
       end
       
-      def >= length
+      def >=(other)
         @length_cond = :>=
         @length = length
         self
       end
       
-      def eq length
+      def eq(other)
         @length_cond = :eq
         @length = length
         self
       end
       
-      def not_eq length
+      def not_eq(other)
         @length_cond = :not_eq
         @length = length
         self
       end
-      
-      
     end
   end
 end

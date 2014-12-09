@@ -21,14 +21,15 @@ require 'varspec/builtin_matcher/respond_to'
 # Define module function corresponding each builtin matcher
 module Varspec
   module BuiltinMatcher
-    self.constants(false).select{ |c| self.const_get(c, false) < Matcher }.each do |c|
-      eval <<-EOS
+    self.constants(false).select { |c| self.const_get(c, false) < Matcher }.each do |c|
+      code = <<-EOS
         def #{c}(*args)
           #{c}[*args]
         end
         
         module_function #{c.inspect}
       EOS
+      eval(code) # rubocop:disable Lint/Eval
     end
   end
 end

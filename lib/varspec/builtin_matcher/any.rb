@@ -9,7 +9,7 @@ module Varspec
       end
       
       def to_s
-        "anything"
+        'anything'
       end
     end
   end

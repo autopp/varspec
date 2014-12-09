@@ -7,7 +7,7 @@ module Varspec
       def initialize(*args)
       end
       
-      def invalid_variable? val
+      def invalid_variable?(val)
         if val == true || val == false
           false
         else
@@ -20,7 +20,7 @@ module Varspec
       end
       
       def to_s
-        "Boolean"
+        'Boolean'
       end
     end
   end

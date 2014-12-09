@@ -1,7 +1,7 @@
 module Varspec
   class Matcher
     def initialize(*args)
-      raise StandardError, "#{self.inspect} is abstract class"
+      fail StandardError, "#{self.inspect} is abstract class"
     end
     
     def self.[](*matchers)
@@ -9,5 +9,3 @@ module Varspec
     end
   end
 end
-
-

@@ -7,7 +7,7 @@ class Binding
   
   def [](*names)
     values = names.map do |name|
-      raise TypeError, "require Symbol or String, but got #{name.inspect}" if not (name.is_a?(Symbol) || name.is_a?(String))
+      fail TypeError, "require Symbol or String, but got #{name.inspect}" unless name.is_a?(Symbol) || name.is_a?(String)
       
       self.eval("#{name}")
     end

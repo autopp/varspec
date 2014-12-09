@@ -3,4 +3,3 @@ class Module
     val.is_a?(self) ? false : val.inspect
   end
 end
-
