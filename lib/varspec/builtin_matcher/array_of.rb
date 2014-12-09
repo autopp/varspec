@@ -11,27 +11,27 @@ module Varspec
         else
           case @length_cond
           when :<
-            if val.length < @length
-              return val.inspect
-            end
-          when :<=
-            if val.length <= @length
-              return val.inspect
-            end
-          when :>
-            if val.length > @length
-              return val.inspect
-            end
-          when :>=
             if val.length >= @length
               return val.inspect
             end
+          when :<=
+            if val.length > @length
+              return val.inspect
+            end
+          when :>
+            if val.length <= @length
+              return val.inspect
+            end
+          when :>=
+            if val.length < @length
+              return val.inspect
+            end
           when :eq
-            if val.length == @length
+            if val.length != @length
               return val.inspect
             end
           when :not_eq
-            if val.length != @length
+            if val.length == @length
               return val.inspect
             end
           end
@@ -48,7 +48,7 @@ module Varspec
       
       def to_s
         if @length_cond
-          "[#{@mathcer}] (length #{@length_cond} #{@length})"
+          "[#{@matcher}] (length #{@length_cond} #{@length})"
         else
           "[#{@matcher}]"
         end
@@ -57,31 +57,37 @@ module Varspec
       def < length
         @length_cond = :<
         @length = length
+        self
       end
       
       def <= length
         @length_cond = :<=
         @length = length
+        self
       end
       
       def > length
         @length_cond = :>
         @length = length
+        self
       end
       
       def >= length
         @length_cond = :>=
         @length = length
+        self
       end
       
       def eq length
         @length_cond = :eq
         @length = length
+        self
       end
       
       def not_eq length
         @length_cond = :not_eq
         @length = length
+        self
       end
       
       

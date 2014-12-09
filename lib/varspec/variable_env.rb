@@ -36,14 +36,14 @@ module Varspec
       @values.each_with_index do |v, i|
         if msg = matcher.invalid_variable?(v)
           # Extract callee
-          if /^(.+?):(\d+):in/ =~ caller[level+2]
+          if /^(.+?):(\d+):in/ =~ caller[level+3]
             callee_file, callee_line = $1, $2
           else
             callee_file = callee_line = ''
           end
           
           # Extract caller
-          if /^(.+?):(\d+):in/ =~ caller[level+3]
+          if /^(.+?):(\d+):in/ =~ caller[level+4]
             caller_file, caller_line = $1, $2
           else
             caller_file = caller_line = ''

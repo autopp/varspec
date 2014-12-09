@@ -84,4 +84,3 @@ describe Varspec do
     expect(true).to eq(true)
   end
 end
-

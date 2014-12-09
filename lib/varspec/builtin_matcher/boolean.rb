@@ -4,6 +4,9 @@ module Varspec
   module BuiltinMatcher
     class Boolean < Matcher
       include Singleton
+      def initialize(*args)
+      end
+      
       def invalid_variable? val
         if val == true || val == false
           false
