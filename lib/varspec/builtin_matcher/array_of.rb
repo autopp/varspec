@@ -43,37 +43,37 @@ module Varspec
       
       def <(other)
         @length_cond = :<
-        @length = length
+        @length = other
         self
       end
       
       def <=(other)
         @length_cond = :<=
-        @length = length
+        @length = other
         self
       end
       
       def >(other)
         @length_cond = :>
-        @length = length
+        @length = other
         self
       end
       
       def >=(other)
         @length_cond = :>=
-        @length = length
+        @length = other
         self
       end
       
       def eq(other)
         @length_cond = :eq
-        @length = length
+        @length = other
         self
       end
       
       def not_eq(other)
         @length_cond = :not_eq
-        @length = length
+        @length = other
         self
       end
     end
